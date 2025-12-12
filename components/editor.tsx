@@ -360,12 +360,15 @@ function PureEditor({
   }, [isMobile, textSelection, handleCloseSelectionMenu]);
 
   useEffect(() => {
+    // Capture the list operation manager ref value at effect execution time
+    const listManager = listOperationManagerRef.current;
+    
     if (containerRef.current && !editorRef.current) {
       const state = EditorState.create({
         doc: buildDocumentFromContent(content),
         plugins: [
           headingKeymapPlugin(), // Add keyboard shortcuts FIRST for higher priority
-          listKeymapPlugin(listOperationManagerRef.current), // Handle Tab/Shift+Tab for list indentation
+          listKeymapPlugin(listManager), // Handle Tab/Shift+Tab for list indentation
           ...exampleSetup({ schema: documentSchema, menuBar: false }),
           inputRules({
             rules: [
@@ -675,8 +678,7 @@ function PureEditor({
       }
       textSelection.cleanup();
 
-      // Clean up list operation manager
-      const listManager = listOperationManagerRef.current;
+      // Clean up list operation manager (using value captured at effect execution time)
       if (listManager) listManager.cleanup();
 
       if (editorRef.current) {

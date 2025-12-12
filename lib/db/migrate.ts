@@ -13,7 +13,7 @@ const runMigrate = async () => {
   if (!process.env.POSTGRES_URL) {
     throw new Error(
       "POSTGRES_URL is not defined. Please set it in .env.local or .env file.\n" +
-        "Example: POSTGRES_URL=postgresql://user:password@localhost:5432/dbname"
+        "Example: POSTGRES_URL=postgresql://user:password@localhost:5432/dbname",
     );
   }
 

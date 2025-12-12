@@ -45,7 +45,8 @@ export function ProseMirrorPreview({
         editorRef.current = null;
       }
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentionally empty - editor is initialized once, content updates handled by separate effect
 
   useEffect(() => {
     if (editorRef.current && content) {
@@ -57,7 +58,7 @@ export function ProseMirrorPreview({
       );
       editorRef.current.dispatch(transaction);
     }
-  }, [className, content]);
+  }, [content]);
 
   return (
     <span
